@@ -22,7 +22,3 @@ for (variable in names(df)){
   }
 }
 
-
-
-
-print(str(df))
