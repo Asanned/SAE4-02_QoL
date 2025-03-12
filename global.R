@@ -28,6 +28,13 @@ for (variable in names(df)){
   }
 }
 
+categories = c('None', 'Very Low', 'Low', 'Moderate', 'High', 'Very High')
 
-
+contingence = data.frame()
+for (variable in qualitative.variables){
+  var_shorter = substr(variable, 0, nchar(variable) - 9)
+  for (category in categories){
+    contingence[var_shorter, category] = sum(df[[variable]] == category)
+  }
+}
 

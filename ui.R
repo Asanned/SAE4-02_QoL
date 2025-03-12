@@ -5,7 +5,9 @@ dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Analyse univariée", tabName = "univar"),
-      menuItem("Analyse bivariée", tabName = "bivar", icon = icon("dashboard"))
+      menuItem("Analyse bivariée", tabName = "bivar", icon = icon("dashboard")),
+      menuItem("Tableau de contingence", tabName = "contingence")
+      menuItem("AFC", tabName = "AFC")
     )
   ),
   dashboardBody(
@@ -34,6 +36,11 @@ dashboardPage(
             plotOutput("bivar.plot")
           )
         )
+      ),
+
+      tabItem(
+        tabName = "AFC",
+
       )
     )
   )
