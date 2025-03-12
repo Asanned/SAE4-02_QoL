@@ -1,6 +1,7 @@
 # Initialisation des bibliothèques utilisées ----
 library(shiny)
 library(shinydashboard)
+library(tidyverse)
 
 # Import et préparation des données ----
 ## Import des données ----
@@ -19,6 +20,15 @@ for (variable in names(df)){
     df[[variable]] = as.numeric(df[[variable]])
   } else if (substring(variable, nchar(variable) - 7, nchar(variable)) == "Category"){
     df[[variable]] = as.factor(df[[variable]])
+  }
+}
+
+list_var_num <- c()
+
+for (variable in names(df)) {
+  print(class(df[[variable]]))
+  if (class(df[[variable]]) == "numeric") {
+    list_var_num <- c(list_var_num, variable)
   }
 }
 
