@@ -6,10 +6,13 @@ library(ade4)
 library(FactoMineR)
 library(factoextra)
 
+ACP_CTR_THRESHOLD = 0.1 # Changez cette valeur pour afficher +/- d'individus dans l'ACP
+
 # Import et préparation des données ----
 ## Import des données ----
 df = read.csv2("data/Quality_of_Life.csv")
-
+row.names(df) = df$country
+df = df[,-1]
 numeric.variables = c()
 qualitative.variables = c()
 

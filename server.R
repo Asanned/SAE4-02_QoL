@@ -39,18 +39,28 @@ shinyServer(function(input, output, session){
 
   # AFC ----
   output$AFC.plot1 = renderPlot({
-    if (FALSE){
-      afc = ade4::dudi.coa(contingence, nf = 2, scannf = FALSE)
-      
-      ade4::s.label(afc$li,xax=1,yax=2)
-      ade4::s.label(afc$co,xax=1,yax=2,add.plot=T,boxes=F)
-    } else {
-      afc = CA(contingence, graph = FALSE)
+    afc = CA(contingence, graph = FALSE)
 
-      factoextra::fviz_ca_biplot(afc, repel = TRUE, col.col = "red", col.row = "blue")
-    }
+    factoextra::fviz_ca_biplot(afc, repel = TRUE, col.col = "red", col.row = "blue")
   })
 
+  # ACP ----
+  ACPres = reactive({
+    interest.variables = c("Purchasing.Power.Value", "Safety.Value", "Health.Care.Value", "Pollution.Value")
+    
+    FactoMineR::PCA(
+      df[complete.cases(df[,interest.variables]), interest.variables], 
+      ncp = 4,
+      graph = FALSE)
+  })
+
+  output$ACP.plot.individuals = renderPlot({
+    FactoMineR::plot.PCA(ACPres(), choix = "ind")
+  })
+
+  output$ACP.plot.variables = renderPlot({
+    FactoMineR::plot.PCA(ACPres(), choix = "var")
+  })
 
 })
 

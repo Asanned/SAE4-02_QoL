@@ -7,7 +7,8 @@ dashboardPage(
       menuItem("Analyse univariée", tabName = "univar"),
       menuItem("Analyse bivariée", tabName = "bivar", icon = icon("dashboard")),
       menuItem("Tableau de contingence", tabName = "contingence"),
-      menuItem("AFC", tabName = "AFC")
+      menuItem("AFC", tabName = "AFC"),
+      menuItem("ACP", tabName = "ACP")
     )
   ),
   dashboardBody(
@@ -15,7 +16,7 @@ dashboardPage(
     tabItems(
       tabItem(tabName = "univar",
         box(
-          selectInput("univar.variable", "Variable à afficher", choices = c(names(df)[-1])),
+          selectInput("univar.variable", "Variable à afficher", choices = c(names(df))),
           textOutput("univar.out1"),
           plotOutput("univar.plot")
         )
@@ -50,6 +51,14 @@ dashboardPage(
       tabItem(
         tabName = "AFC",
         plotOutput("AFC.plot1")
+      ),
+
+      tabItem(
+        tabName = "ACP",
+        box(
+          plotOutput("ACP.plot.individuals"),
+          plotOutput("ACP.plot.variables")
+        )
       )
     )
   )
