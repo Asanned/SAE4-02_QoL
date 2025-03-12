@@ -23,9 +23,9 @@ shinyServer(function(input, output, session){
   })
 
   # bivar ----
-  output$scatterplot_anabi <- renderPlot({
-    x = input$select_varx_anabi
-    y = input$select_vary_anabi
+  output$bivar.plot <- renderPlot({
+    x = input$bivar.varX
+    y = input$bivar.varY
     ggplot(df) +
       aes_string(x, y) +
       geom_point(colour = "#112446") +
