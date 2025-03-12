@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Gantari:ital,wght@0,100..900;1,100..900&family=Georama:ital,wght@0,100..900;1,100..900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+
+.main-header .logo {
+    font-family: "Gantari", sans-serif;
+    font-weight: bold;
+    font-size: 1.25em;
+  }
+
+h3 {
+    font-family: "Gantari", sans-serif;
+    font-size: 1.25em;
+    text-align: center;
+}
+
+div .separator_bar {
+    height: 1px;
+    width: 85%;
+    background-color: rgba(125, 128, 129, 0.521);
+    margin: auto;
+    padding: 10em, 0 , 0, 0;
+}

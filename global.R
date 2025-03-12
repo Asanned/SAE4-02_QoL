@@ -29,5 +29,3 @@ for (variable in names(df)){
 }
 
 
-
-
