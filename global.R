@@ -3,6 +3,8 @@ library(shiny)
 library(shinydashboard)
 library(tidyverse)
 library(ade4)
+library(FactoMineR)
+library(factoextra)
 
 # Import et préparation des données ----
 ## Import des données ----

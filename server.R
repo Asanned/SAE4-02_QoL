@@ -39,10 +39,16 @@ shinyServer(function(input, output, session){
 
   # AFC ----
   output$AFC.plot1 = renderPlot({
-    afc = dudi.coa(contingence, nf = 2, scannf = FALSE)
-    
-    s.label(afc$li,xax=1,yax=2)
-    s.label(afc$co,xax=1,yax=2,add.plot=T,boxes=F)
+    if (FALSE){
+      afc = ade4::dudi.coa(contingence, nf = 2, scannf = FALSE)
+      
+      ade4::s.label(afc$li,xax=1,yax=2)
+      ade4::s.label(afc$co,xax=1,yax=2,add.plot=T,boxes=F)
+    } else {
+      afc = CA(contingence, graph = FALSE)
+
+      factoextra::fviz_ca_biplot(afc, repel = TRUE, col.col = "red", col.row = "blue")
+    }
   })
 
 
