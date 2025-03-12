@@ -6,7 +6,7 @@ dashboardPage(
     sidebarMenu(
       menuItem("Analyse univariée", tabName = "univar"),
       menuItem("Analyse bivariée", tabName = "bivar", icon = icon("dashboard")),
-      menuItem("Tableau de contingence", tabName = "contingence")
+      menuItem("Tableau de contingence", tabName = "contingence"),
       menuItem("AFC", tabName = "AFC")
     )
   ),
@@ -39,8 +39,17 @@ dashboardPage(
       ),
 
       tabItem(
-        tabName = "AFC",
+        tabName = "contingence",
+        box(
+          width = 12,
+          title = "Tableau de contingence",
+          tableOutput("contingence.table")
+        )
+      ),
 
+      tabItem(
+        tabName = "AFC",
+        plotOutput("AFC.plot1")
       )
     )
   )

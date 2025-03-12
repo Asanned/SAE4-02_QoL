@@ -34,6 +34,17 @@ shinyServer(function(input, output, session){
       theme(legend.justification = "right")
   })
 
+  # contingence ----
+  output$contingence.table = renderTable(contingence, rownames = TRUE)
+
+  # AFC ----
+  output$AFC.plot1 = renderPlot({
+    afc = dudi.coa(contingence, nf = 2, scannf = FALSE)
+    
+    s.label(afc$li,xax=1,yax=2)
+    s.label(afc$co,xax=1,yax=2,add.plot=T,boxes=F)
+  })
+
 
 })
 
