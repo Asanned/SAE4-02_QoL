@@ -1,10 +1,14 @@
 # Initialisation des bibliothèques utilisées ----
 library(shiny)
 library(shinydashboard)
+library(tidyverse)
 
 # Import et préparation des données ----
 ## Import des données ----
 df = read.csv2("data/Quality_of_Life.csv")
+
+numeric.variables = c()
+qualitative.variables = c()
 
 ## Préparation des données ----
 for (variable in names(df)){
@@ -17,8 +21,13 @@ for (variable in names(df)){
   ### Changement du type des variables ----
   if (substring(variable, nchar(variable) - 4, nchar(variable)) == "Value"){
     df[[variable]] = as.numeric(df[[variable]])
+    numeric.variables = c(numeric.variables, variable)
   } else if (substring(variable, nchar(variable) - 7, nchar(variable)) == "Category"){
     df[[variable]] = as.factor(df[[variable]])
+    qualitative.variables = c(qualitative.variables, variable)
   }
 }
+
+
+
 
