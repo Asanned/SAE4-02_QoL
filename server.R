@@ -82,6 +82,33 @@ shinyServer(function(input, output, session){
     )
   })
 
+  # contingence ----
+  output$contingence.table = renderTable(contingence, rownames = TRUE)
+
+  # AFC ----
+  output$AFC.plot1 = renderPlot({
+    afc = CA(contingence, graph = FALSE)
+
+    factoextra::fviz_ca_biplot(afc, repel = TRUE, col.col = "red", col.row = "blue")
+  })
+
+  # ACP ----
+  ACPres = reactive({
+    interest.variables = c("Purchasing.Power.Value", "Safety.Value", "Health.Care.Value", "Pollution.Value")
+    
+    FactoMineR::PCA(
+      df[complete.cases(df[,interest.variables]), interest.variables], 
+      ncp = 4,
+      graph = FALSE)
+  })
+
+  output$ACP.plot.individuals = renderPlot({
+    FactoMineR::plot.PCA(ACPres(), choix = "ind")
+  })
+
+  output$ACP.plot.variables = renderPlot({
+    FactoMineR::plot.PCA(ACPres(), choix = "var")
+  })
 
 })
 

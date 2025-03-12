@@ -2,11 +2,17 @@
 library(shiny)
 library(shinydashboard)
 library(tidyverse)
+library(ade4)
+library(FactoMineR)
+library(factoextra)
+
+ACP_CTR_THRESHOLD = 0.1 # Changez cette valeur pour afficher +/- d'individus dans l'ACP
 
 # Import et préparation des données ----
 ## Import des données ----
 df = read.csv2("data/Quality_of_Life.csv")
-
+row.names(df) = df$country
+df = df[,-1]
 numeric.variables = c()
 qualitative.variables = c()
 
@@ -28,4 +34,13 @@ for (variable in names(df)){
   }
 }
 
+categories = c('None', 'Very Low', 'Low', 'Moderate', 'High', 'Very High')
+
+contingence = data.frame()
+for (variable in qualitative.variables){
+  var_shorter = substr(variable, 0, nchar(variable) - 9)
+  for (category in categories){
+    contingence[var_shorter, category] = sum(df[[variable]] == category)
+  }
+}
 

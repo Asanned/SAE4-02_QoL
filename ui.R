@@ -11,7 +11,9 @@ dashboardPage(skin = "purple",
       menuItem("Analyse bivariée", tabName = "bivar", icon = icon("dashboard")),
       div(class="separator_bar"),
       h3("Analyse Factorielle des Correspondances"),
-      menuItem("AFC", tabName="afc", icon = icon("dashboard"))
+      menuItem("Tableau de contingence", tabName = "contingence"),
+      menuItem("AFC", tabName="afc", icon = icon("dashboard")),
+      menuItem("ACP", tabName = "ACP")
     )
   ),
   dashboardBody(
@@ -77,11 +79,27 @@ dashboardPage(skin = "purple",
           valueBoxOutput("bivar.cor")
         )
       ),
-      tabItem(tabName = "afc",
-              box(
-                width = 12,
-                dataTableOutput("dt.afc")
-              )
+
+      tabItem(
+        tabName = "contingence",
+        box(
+          width = 12,
+          title = "Tableau de contingence",
+          tableOutput("contingence.table")
+        )
+      ),
+
+      tabItem(
+        tabName = "AFC",
+        plotOutput("AFC.plot1")
+      ),
+
+      tabItem(
+        tabName = "ACP",
+        box(
+          plotOutput("ACP.plot.individuals"),
+          plotOutput("ACP.plot.variables")
+        )
       )
     )
   )
