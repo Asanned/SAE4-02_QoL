@@ -4,16 +4,16 @@ dashboardPage(skin = "purple",
     titleWidth = 450
   ),
   dashboardSidebar(
-    width = 450,
+    width = 300,
     sidebarMenu(
       h3("Analyse descriptive"),
-      menuItem("Analyse univariée", tabName = "univar", icon = icon("dashboard")),
-      menuItem("Analyse bivariée", tabName = "bivar", icon = icon("dashboard")),
+      menuItem("Analyse univariée", tabName = "univar", icon = icon("chart-bar")),
+      menuItem("Analyse bivariée", tabName = "bivar", icon = icon("chart-line")),
       div(class="separator_bar"),
       h3("Analyse Factorielle des Correspondances"),
-      menuItem("Tableau de contingence", tabName = "contingence"),
+      menuItem("Tableau de contingence", tabName = "contingence",icon=icon("table")),
       menuItem("AFC", tabName="afc", icon = icon("dashboard")),
-      menuItem("ACP", tabName = "ACP")
+      menuItem("ACP", tabName = "ACP",icon=icon("crosshairs"))
     )
   ),
   dashboardBody(
@@ -27,13 +27,13 @@ dashboardPage(skin = "purple",
         box(
           solidHeader = TRUE,
           color="purple",
-          width = 2,
+          width = 3,
           title = "Variable à afficher",
           selectInput("univar.variable", "", choices = substr(numeric.variables, 0,nchar(numeric.variables)-6))
         ),
         tabBox(
           title = tagList(shiny::icon("gear"), "Graphique"),
-          width=10,
+          width=9,
           tabPanel("Histogramme",
                    plotOutput("univar.hist")
           ),
@@ -96,11 +96,11 @@ dashboardPage(skin = "purple",
 
       tabItem(
         tabName = "ACP",
+        fluidRow(
         box(
-          plotOutput("ACP.plot.individuals"),
-          plotOutput("ACP.plot.variables")
-        )
+          plotOutput("ACP.plot.individuals")),
+          box(plotOutput("ACP.plot.variables"))
+        ))
       )
     )
   )
-)
