@@ -19,3 +19,7 @@ div .separator_bar {
     margin: auto;
     padding: 10em, 0 , 0, 0;
 }
+
+.dataTables_wrapper {
+  overflow-y: scroll;
+}

@@ -94,7 +94,6 @@ shinyServer(function(input, output, session){
 
   # ACP ----
   ACPres = reactive({
-    interest.variables = c("Purchasing.Power.Value", "Safety.Value", "Health.Care.Value", "Pollution.Value")
     
     FactoMineR::PCA(
       df[complete.cases(df[,interest.variables]), interest.variables], 
@@ -103,11 +102,28 @@ shinyServer(function(input, output, session){
   })
 
   output$ACP.plot.individuals = renderPlot({
-    FactoMineR::plot.PCA(ACPres(), choix = "ind")
+    fviz_pca_ind(ACPres(), col.ind = "contrib")
   })
 
   output$ACP.plot.variables = renderPlot({
-    FactoMineR::plot.PCA(ACPres(), choix = "var")
+    fviz_pca_var(ACPres(), col.var = "contrib")
+  })
+  
+  output$ACP.plot.inertie = renderPlot({
+    fviz_screeplot(ACPres())
+  })
+  
+  output$ACP.table = DT::renderDT({
+    #ACPres()$ind$contrib[,c("Dim.1", "Dim.2")]
+    df_res1 = df[complete.cases(df[,interest.variables]),]
+
+    df_res1[,"contrib.sum"] = (ACPres()$ind$contrib[,"Dim.1"] + ACPres()$ind$contrib[,"Dim.2"])
+    
+    df_res = df_res1[
+                (ACPres()$ind$coord[,"Dim.1"] > 0) & 
+                (df_res1[,"contrib.sum"] > input$results.CTR_threshold),]
+    
+    sort_by(df_res,df_res[,"contrib.sum"], decreasing = TRUE)
   })
 
 })

@@ -5,9 +5,10 @@ library(tidyverse)
 library(ade4)
 library(FactoMineR)
 library(factoextra)
+library(DT)
 #library(fontawesome) # pour avoir de jolie icon <3
 
-ACP_CTR_THRESHOLD = 0.1 # Changez cette valeur pour afficher +/- d'individus dans l'ACP
+interest.variables = c("Purchasing.Power.Value", "Safety.Value", "Health.Care.Value", "Pollution.Value")
 
 # Import et préparation des données ----
 ## Import des données ----

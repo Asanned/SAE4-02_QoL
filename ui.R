@@ -10,10 +10,13 @@ dashboardPage(skin = "purple",
       menuItem("Analyse univariée", tabName = "univar", icon = icon("chart-bar")),
       menuItem("Analyse bivariée", tabName = "bivar", icon = icon("chart-line")),
       div(class="separator_bar"),
-      h3("Analyse Factorielle des Correspondances"),
+      h3("Analyses Factorielles"),
       menuItem("Tableau de contingence", tabName = "contingence",icon=icon("table")),
-      menuItem("AFC", tabName="afc", icon = icon("dashboard")),
-      menuItem("ACP", tabName = "ACP",icon=icon("crosshairs"))
+      menuItem("AFC", tabName="AFC", icon = icon("dashboard")),
+      menuItem("ACP", tabName = "ACP",icon=icon("crosshairs")),
+      div(class="separator_bar"),
+      h3("Résultats"),
+      menuItem("Résultats", tabName = "resultats",icon=icon("trophy"))
     )
   ),
   dashboardBody(
@@ -97,9 +100,22 @@ dashboardPage(skin = "purple",
       tabItem(
         tabName = "ACP",
         fluidRow(
-        box(
-          plotOutput("ACP.plot.individuals")),
-          box(plotOutput("ACP.plot.variables"))
+        box(plotOutput("ACP.plot.variables")),
+        box(plotOutput("ACP.plot.inertie")),
+        ),
+        fluidRow(
+          box(width = 12, plotOutput("ACP.plot.individuals")),
+        )),
+      
+      tabItem(
+        tabName = "resultats",
+        fluidRow(
+          box(width = 12,
+            numericInput("results.CTR_threshold", label = "CTR threshold", 2.5, min = 0, max = 10, step = 0.1)
+          ),
+          box(width = 12,
+            DTOutput("ACP.table")
+          )
         ))
       )
     )
