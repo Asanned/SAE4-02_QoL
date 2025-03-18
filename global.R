@@ -17,6 +17,7 @@ interest.variables.quali = c("Purchasing.Power.Category", "Safety.Category", "He
 ## Import des données ----
 df = read.csv2("data/Quality_of_Life.csv")
 row.names(df) = df$country
+
 df = df[,-1]
 numeric.variables = c()
 qualitative.variables = c()
@@ -43,7 +44,40 @@ for (variable in names(df)){
 # AFCM
 df.acm <- dudi.acm(df[,interest.variables.quali], scannf=FALSE, nf=2)
 
+cl <- kmeans(df.acm$li, centers=6, nstart=250, iter.max = 25)
+
+centers = sort_by(data.frame(cl$centers), data.frame(cl$centers)[,c("Axis1", "Axis2")])
+
+cl <- kmeans(df.acm$li, centers=centers)
+
+df_ordre_pays = sort_by(df[,interest.variables.quali], df.acm$tab[,c(
+      "Purchasing.Power.Category.Very.High",
+      "Health.Care.Category.Very.High",
+      "Safety.Category.Very.High",
+      "Pollution.Category.Very.Low",
+      
+      "Purchasing.Power.Category.High",
+      "Health.Care.Category.High",
+      "Safety.Category.High",
+      "Pollution.Category.Low"
+    )], decreasing = TRUE)
+
+df_ordre_pays$ordre = 1:dim(df_ordre_pays)[1]
+
+# Map
+
+couleurs <- colorRampPalette(c("blue", "red"))(nrow(df_ordre_pays))
+
+library(leaflet)
+library(sf)
+library(rnaturalearth)
+library(colorRamps)
 
 
+# Obtenir les données géospatiales des pays
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Filtrer les pays présents dans le dataframe
+world_filtered <- world[world$name %in% rownames(df_ordre_pays), ]
 
 

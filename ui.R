@@ -4,20 +4,21 @@ dashboardPage(skin = "purple",
     titleWidth = 450
   ),
   dashboardSidebar(
-    width = 300,
+    width = 150,
     sidebarMenu(
-      h3("Analyse descriptive"),
-      menuItem("Analyse univariée", tabName = "univar", icon = icon("chart-bar")),
-      menuItem("Analyse bivariée", tabName = "bivar", icon = icon("chart-line")),
-      div(class="separator_bar"),
-      h3("Analyses Factorielles"),
-      menuItem("AFCM Axe", tabName="AFCM_axe", icon = icon("dashboard")),
-      menuItem("AFCM Habillage", tabName="AFCM_hab", icon = icon("dashboard")),
-      menuItem("ACP", tabName = "ACP",icon=icon("crosshairs")),
-      div(class="separator_bar"),
-      h3("Résultats"),
-      menuItem("Tableau", tabName = "resultats",icon=icon("trophy")),
-      menuItem("Graphique", tabName = "result_graph",icon=icon("trophy"))
+      # h3("Analyse descriptive"),
+      # menuItem("Analyse univariée", tabName = "univar", icon = icon("chart-bar")),
+      # menuItem("Analyse bivariée", tabName = "bivar", icon = icon("chart-line")),
+      # div(class="separator_bar"),
+      # h3("Analyses Factorielles"),
+      # menuItem("AFCM Axe", tabName="AFCM_axe", icon = icon("dashboard")),
+      # menuItem("AFCM Habillage", tabName="AFCM_hab", icon = icon("dashboard")),
+      # menuItem("ACP", tabName = "ACP",icon=icon("crosshairs")),
+      # div(class="separator_bar"),
+      # h3("Résultats"),
+      # menuItem("Tableau", tabName = "resultats",icon=icon("trophy")),
+      menuItem("Cluster", tabName = "result_graph",icon=icon("trophy")),
+      menuItem("Carte", tabName = "map")
     )
   ),
   dashboardBody(
@@ -151,7 +152,12 @@ dashboardPage(skin = "purple",
               div(numericInput('results.cluster.labelsize', 'Taille des labels', 12, min = 5, max = 32, step = 1, width = "100px"), class = "grid1-numInput"),
               div(plotOutput("results.cluster", height = "80vh"), class = "grid1-plot")
           )
-        ))
+        )),
+
+      tabItem(
+        tabName = "map",
+        leafletOutput("map")
+      )
       )
     )
   )

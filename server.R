@@ -160,27 +160,12 @@ shinyServer(function(input, output, session){
   })
   
   output$results.AFCM.table = DT::renderDT({
-    sort_by(df[,interest.variables.quali], df.acm$tab[,c(
-      "Purchasing.Power.Category.Very.High",
-      "Health.Care.Category.Very.High",
-      "Safety.Category.Very.High",
-      "Pollution.Category.Very.Low",
-      
-      "Purchasing.Power.Category.High",
-      "Health.Care.Category.High",
-      "Safety.Category.High",
-      "Pollution.Category.Low"
-    )], decreasing = TRUE)
+    df_ordre_pays
   })
   
   # Resultat graph ---
   
   output$results.cluster = renderPlot({
-    cl <- kmeans(df.acm$li, centers=6, nstart=250, iter.max = 25)
-    
-    centers = sort_by(data.frame(cl$centers), data.frame(cl$centers)[,c("Axis1", "Axis2")])
-    
-    cl <- kmeans(df.acm$li, centers=centers)
     
     fviz_cluster(
       cl, df.acm$li, 
@@ -189,12 +174,24 @@ shinyServer(function(input, output, session){
       shape = 'circle',
       repel = input$results.cluster.repel,
       xlab = 'Richesse',
-      ylab = 'Santé',
+      ylab = 'Santé, Sécurité & Pollution',
       main = '') +
       theme(legend.position="none") + 
       scale_color_brewer('Cluster', palette = 'Dark2') +
       scale_fill_brewer('Cluster', palette = 'Dark2')
     
+  })
+
+  output$map = renderLeaflet({
+    leaflet(world_filtered) %>%
+      addTiles() %>%
+      addPolygons(
+        fillColor = couleurs[match(world_filtered$name, rownames(df_ordre_pays))],
+        fillOpacity = 0.7,
+        color = "black",
+        weight = 1,
+        label = ~paste(name, "-", "Ordre:", df_ordre_pays$ordre[match(name, rownames(df_ordre_pays))])
+      ) 
   })
 
 })
