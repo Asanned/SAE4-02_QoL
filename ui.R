@@ -146,10 +146,10 @@ dashboardPage(skin = "purple",
       tabItem(
         tabName = "result_graph",
         fluidRow(
-          box(width = 12,
-              checkboxInput('results.cluster.repel', 'Séparer les labels'),
-              numericInput('results.cluster.labelsize', 'Taille des labels', 12, min = 5, max = 32, step = 1, width = "100px"),
-              plotOutput("results.cluster", height = "80vh")
+          box(width = 12, class = "grid1-parent",
+              div(checkboxInput('results.cluster.repel', 'Séparer les labels'), class = "grid1-checkbox"),
+              div(numericInput('results.cluster.labelsize', 'Taille des labels', 12, min = 5, max = 32, step = 1, width = "100px"), class = "grid1-numInput"),
+              div(plotOutput("results.cluster", height = "80vh"), class = "grid1-plot")
           )
         ))
       )

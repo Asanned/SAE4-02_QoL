@@ -34,3 +34,15 @@ border-left-color:#5050B0;
 border-right-color:#5050B0;
 border-top-color:#5050B0;
 }
+
+.grid1-parent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr 10fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.grid1-checkbox { grid-area: 1 / 1 / 2 / 2; }
+.grid1-numInput { grid-area: 1 / 2 / 2 / 3; }
+.grid1-plot { grid-area: 2 / 1 / 3 / 3; }
