@@ -134,9 +134,12 @@ dashboardPage(skin = "purple",
           box(width = 12,solidHeader = TRUE,status = "primary",
             numericInput("results.CTR_threshold", label = "CTR threshold", 2.5, min = 0, max = 10, step = 0.1)
           ),
-          box(width = 12,
-            DTOutput("ACP.table")
-          )
+          box(width = 6,
+            DTOutput("results.ACP.table")
+          ),
+          box(width = 6,
+            DTOutput("results.AFCM.table")  
+          ),
         ))
       )
     )

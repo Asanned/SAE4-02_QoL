@@ -40,3 +40,8 @@ for (variable in names(df)){
 
 # AFCM
 df.acm <- dudi.acm(df[,interest.variables.quali], scannf=FALSE, nf=2)
+
+
+
+
+

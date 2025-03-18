@@ -144,7 +144,7 @@ shinyServer(function(input, output, session){
     fviz_screeplot(ACPres())
   })
   
-  output$ACP.table = DT::renderDT({
+  output$results.ACP.table = DT::renderDT({
     #ACPres()$ind$contrib[,c("Dim.1", "Dim.2")]
     df_res1 = df[complete.cases(df[,interest.variables.quanti]),]
 
@@ -155,6 +155,20 @@ shinyServer(function(input, output, session){
                 (df_res1[,"contrib.sum"] > input$results.CTR_threshold),]
     
     sort_by(df_res,df_res[,"contrib.sum"], decreasing = TRUE)
+  })
+  
+  output$results.AFCM.table = DT::renderDT({
+    sort_by(df[,interest.variables.quali], df.acm$tab[,c(
+      "Purchasing.Power.Category.Very.High",
+      "Health.Care.Category.Very.High",
+      "Safety.Category.Very.High",
+      "Pollution.Category.Very.Low",
+      
+      "Purchasing.Power.Category.High",
+      "Health.Care.Category.High",
+      "Safety.Category.High",
+      "Pollution.Category.Low"
+    )], decreasing = TRUE)
   })
 
 })
