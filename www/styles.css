@@ -6,6 +6,7 @@
     font-size: 1.25em;
   }
 
+
 h3 {
     font-family: "Gantari", sans-serif;
     font-size: 1em;
@@ -22,4 +23,14 @@ div .separator_bar {
 
 .dataTables_wrapper {
   overflow-y: scroll;
+}
+
+
+
+
+.box.box-solid.box-primary{
+border-bottom-color:#5050B0;
+border-left-color:#5050B0;
+border-right-color:#5050B0;
+border-top-color:#5050B0;
 }

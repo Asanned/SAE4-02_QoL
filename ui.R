@@ -32,7 +32,7 @@ dashboardPage(skin = "purple",
           color="purple",
           width = 3,
           title = "Variable à afficher",
-          selectInput("univar.variable", "", choices = substr(numeric.variables, 0,nchar(numeric.variables)-6))
+          radioButtons("univar.variable","",choices = substr(numeric.variables, 0,nchar(numeric.variables)-6))
         ),
         tabBox(
           title = tagList(shiny::icon("gear"), "Graphique"),
@@ -59,27 +59,38 @@ dashboardPage(skin = "purple",
       
       tabItem(
         tabName = "bivar",
+        fluidRow( 
+          box(
+          solidHeader = TRUE,
+          status = "primary",
+          color="purple",
+          width = 6,
+          selectInput("bivar.varX", "Choix de la variable x:", choices = numeric.variables, selected = "Purchasing.Power.Value")
+               ),
+        box(
+          solidHeader = TRUE,
+          status = "primary",
+          color="purple",
+          width = 6,
+          selectInput("bivar.varY", "Choix de la variable y:", choices = numeric.variables, selected = "Cost.of.Living.Value")
+            )
+        ),
+        
         fluidRow(
+        
           box(
             solidHeader = TRUE,
             color="purple",
-            width = 3,
-            title = "Choix des variables",
-            selectInput("bivar.varX", "Choix de la variable x:", choices = numeric.variables, selected = "Purchasing.Power.Value"),
-            selectInput("bivar.varY", "Choix de la variable y:", choices = numeric.variables, selected = "Cost.of.Living.Value")
-          ),
-          box(
-            solidHeader = TRUE,
-            color="purple",
-            width = 9,
+            width = 12,
             title = "Affichage du scatterplot",
             plotOutput("bivar.plot")
           )
-        ),
+                ),
+        
         fluidRow(
           valueBoxOutput("bivar.cor"),
-          valueBoxOutput("bivar.nbi"),
-          valueBoxOutput("bivar.cor")
+          valueBoxOutput("bivar.nbi")
+        
         )
       ),
 
@@ -120,7 +131,7 @@ dashboardPage(skin = "purple",
       tabItem(
         tabName = "resultats",
         fluidRow(
-          box(width = 12,
+          box(width = 12,solidHeader = TRUE,status = "primary",
             numericInput("results.CTR_threshold", label = "CTR threshold", 2.5, min = 0, max = 10, step = 0.1)
           ),
           box(width = 12,

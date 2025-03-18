@@ -30,7 +30,7 @@ shinyServer(function(input, output, session){
     y = paste0(input$univar.variable,".Value")
     x = df[,y]
     valueBox(
-      round(mean(x, na.rm = T),4), "Moyenne", icon = icon("calculator"),
+      round(mean(x, na.rm = T),2), "Moyenne", icon = icon("calculator"),
       color = "purple"
     )
   })
@@ -39,7 +39,7 @@ shinyServer(function(input, output, session){
     y = paste0(input$univar.variable,".Value")
     x = df[,y]
     valueBox(
-      round(median.default(x=x, na.rm = T),4), "Médiane", icon = icon("dashboard"),
+      round(median.default(x=x, na.rm = T),2), "Médiane", icon = icon("dashboard"),
       color = "yellow"
     )
   })
@@ -48,7 +48,7 @@ shinyServer(function(input, output, session){
     y = paste0(input$univar.variable,".Value")
     x = df[,y]
     valueBox(
-      round(sqrt(var(x, na.rm = T)),4), "Ecart-type", icon = icon("dashboard"),
+      round(sqrt(var(x, na.rm = T)),2), "Ecart-type", icon = icon("dashboard"),
       color = "blue"
     )
   })
