@@ -144,6 +144,8 @@ shinyServer(function(input, output, session){
     fviz_screeplot(ACPres())
   })
   
+  # Resultat tab ----
+  
   output$results.ACP.table = DT::renderDT({
     #ACPres()$ind$contrib[,c("Dim.1", "Dim.2")]
     df_res1 = df[complete.cases(df[,interest.variables.quanti]),]
@@ -169,6 +171,30 @@ shinyServer(function(input, output, session){
       "Safety.Category.High",
       "Pollution.Category.Low"
     )], decreasing = TRUE)
+  })
+  
+  # Resultat graph ---
+  
+  output$results.cluster = renderPlot({
+    cl <- kmeans(df.acm$li, centers=6, nstart=250, iter.max = 25)
+    
+    centers = sort_by(data.frame(cl$centers), data.frame(cl$centers)[,c("Axis1", "Axis2")])
+    
+    cl <- kmeans(df.acm$li, centers=centers)
+    
+    fviz_cluster(
+      cl, df.acm$li, 
+      labelsize = input$results.cluster.labelsize, 
+      show.clust.cent = FALSE, 
+      shape = 'circle',
+      repel = input$results.cluster.repel,
+      xlab = 'Richesse',
+      ylab = 'Santé',
+      main = '') +
+      theme(legend.position="none") + 
+      scale_color_brewer('Cluster', palette = 'Dark2') +
+      scale_fill_brewer('Cluster', palette = 'Dark2')
+    
   })
 
 })

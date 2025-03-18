@@ -6,6 +6,8 @@ library(ade4)
 library(FactoMineR)
 library(factoextra)
 library(DT)
+library(plotly)
+library(graphics)
 #library(fontawesome) # pour avoir de jolie icon <3
 
 interest.variables.quanti = c("Purchasing.Power.Value", "Safety.Value", "Health.Care.Value", "Pollution.Value")

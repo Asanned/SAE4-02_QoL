@@ -16,7 +16,8 @@ dashboardPage(skin = "purple",
       menuItem("ACP", tabName = "ACP",icon=icon("crosshairs")),
       div(class="separator_bar"),
       h3("Résultats"),
-      menuItem("Résultats", tabName = "resultats",icon=icon("trophy"))
+      menuItem("Tableau", tabName = "resultats",icon=icon("trophy")),
+      menuItem("Graphique", tabName = "result_graph",icon=icon("trophy"))
     )
   ),
   dashboardBody(
@@ -129,6 +130,16 @@ dashboardPage(skin = "purple",
           box(width = 6,
             DTOutput("results.AFCM.table")  
           ),
+        )),
+      
+      tabItem(
+        tabName = "result_graph",
+        fluidRow(
+          box(width = 12,
+              checkboxInput('results.cluster.repel', 'Séparer les labels'),
+              numericInput('results.cluster.labelsize', 'Taille des labels', 12, min = 5, max = 32, step = 1, width = "100px"),
+              plotOutput("results.cluster", height = "80vh")
+          )
         ))
       )
     )
