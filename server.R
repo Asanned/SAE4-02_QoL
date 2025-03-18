@@ -82,21 +82,52 @@ shinyServer(function(input, output, session){
     )
   })
 
-  # contingence ----
-  output$contingence.table = renderTable(contingence, rownames = TRUE)
-
-  # AFC ----
-  output$AFC.plot1 = renderPlot({
-    afc = CA(contingence, graph = FALSE)
-
-    factoextra::fviz_ca_biplot(afc, repel = TRUE, col.col = "red", col.row = "blue")
+  # AFCM ----
+  output$AFCM.eigen = renderPlot({
+    fviz_eig(df.acm, geom = "bar") + ggtitle("Eboulis des valeurs propres en %")
   })
+  
+  output$AFCM.axe12 = renderPlot({
+    fviz_mca_biplot(df.acm, axes = c(1,2))
+  })
+  
+  output$AFCM.axe2 = renderPlot({
+    modal_comp2 <- df.acm$co[order(df.acm$co$Comp2), ] ## tri par Comp2
+    dotchart(modal_comp2[,2],labels = row.names(modal_comp2),cex=0.7,pch=16)
+  })
+  
+  
+  output$AFCM.axe1 = renderPlot({
+    modal_comp1 <- df.acm$co[order(df.acm$co$Comp1), ]
+    dotchart(modal_comp1[,1],labels = row.names(modal_comp1),cex=0.7,pch=16)
+  })
+  
+  output$AFCM.hab.pollution = renderPlot({
+    fviz_mca_ind(df.acm, habillage=df$Pollution.Category, label="none", addEllipses=TRUE, mean.point=FALSE) +
+    ggtitle("")
+  })
+  
+  output$AFCM.hab.ppower = renderPlot({
+    fviz_mca_ind(df.acm, habillage=df$Purchasing.Power.Category, label="none", addEllipses=TRUE, mean.point=FALSE) +
+    ggtitle("")
+  })
+  
+  output$AFCM.hab.safety = renderPlot({
+    fviz_mca_ind(df.acm, habillage=df$Safety.Category, label="none", addEllipses=TRUE, mean.point=FALSE) +
+      ggtitle("")
+  })
+  
+  output$AFCM.hab.health = renderPlot({
+    fviz_mca_ind(df.acm, habillage=df$Health.Care.Category, label="none", addEllipses=TRUE, mean.point=FALSE) +
+      ggtitle("")
+  })
+  
 
   # ACP ----
   ACPres = reactive({
     
     FactoMineR::PCA(
-      df[complete.cases(df[,interest.variables]), interest.variables], 
+      df[complete.cases(df[,interest.variables.quanti]), interest.variables.quanti], 
       ncp = 4,
       graph = FALSE)
   })
@@ -115,7 +146,7 @@ shinyServer(function(input, output, session){
   
   output$ACP.table = DT::renderDT({
     #ACPres()$ind$contrib[,c("Dim.1", "Dim.2")]
-    df_res1 = df[complete.cases(df[,interest.variables]),]
+    df_res1 = df[complete.cases(df[,interest.variables.quanti]),]
 
     df_res1[,"contrib.sum"] = (ACPres()$ind$contrib[,"Dim.1"] + ACPres()$ind$contrib[,"Dim.2"])
     

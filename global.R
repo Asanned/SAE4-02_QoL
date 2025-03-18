@@ -8,7 +8,8 @@ library(factoextra)
 library(DT)
 #library(fontawesome) # pour avoir de jolie icon <3
 
-interest.variables = c("Purchasing.Power.Value", "Safety.Value", "Health.Care.Value", "Pollution.Value")
+interest.variables.quanti = c("Purchasing.Power.Value", "Safety.Value", "Health.Care.Value", "Pollution.Value")
+interest.variables.quali = c("Purchasing.Power.Category", "Safety.Category", "Health.Care.Category", "Pollution.Category")
 
 # Import et préparation des données ----
 ## Import des données ----
@@ -36,13 +37,6 @@ for (variable in names(df)){
   }
 }
 
-categories = c('None', 'Very Low', 'Low', 'Moderate', 'High', 'Very High')
 
-contingence = data.frame()
-for (variable in qualitative.variables){
-  var_shorter = substr(variable, 0, nchar(variable) - 9)
-  for (category in categories){
-    contingence[var_shorter, category] = sum(df[[variable]] == category)
-  }
-}
-
+# AFCM
+df.acm <- dudi.acm(df[,interest.variables.quali], scannf=FALSE, nf=2)

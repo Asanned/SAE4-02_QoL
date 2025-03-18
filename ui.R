@@ -11,8 +11,8 @@ dashboardPage(skin = "purple",
       menuItem("Analyse bivariée", tabName = "bivar", icon = icon("chart-line")),
       div(class="separator_bar"),
       h3("Analyses Factorielles"),
-      menuItem("Tableau de contingence", tabName = "contingence",icon=icon("table")),
-      menuItem("AFC", tabName="AFC", icon = icon("dashboard")),
+      menuItem("AFCM Axe", tabName="AFCM_axe", icon = icon("dashboard")),
+      menuItem("AFCM Habillage", tabName="AFCM_hab", icon = icon("dashboard")),
       menuItem("ACP", tabName = "ACP",icon=icon("crosshairs")),
       div(class="separator_bar"),
       h3("Résultats"),
@@ -84,17 +84,27 @@ dashboardPage(skin = "purple",
       ),
 
       tabItem(
-        tabName = "contingence",
-        box(
-          width = 12,
-          title = "Tableau de contingence",
-          tableOutput("contingence.table")
+        tabName = "AFCM_axe",
+        fluidRow(
+          box(plotOutput("AFCM.eigen")),
+          box(plotOutput("AFCM.axe12"))
+        ),
+        fluidRow(
+          box(plotOutput("AFCM.axe1")),
+          box(plotOutput("AFCM.axe2"))
         )
       ),
-
+      
       tabItem(
-        tabName = "AFC",
-        plotOutput("AFC.plot1")
+        tabName = "AFCM_hab",
+        fluidRow(
+          box(title = "Habillage de la catégorie pollution", plotOutput("AFCM.hab.pollution")),
+          box(title = "Habillage de la catégorie pouvoir d'achat", plotOutput("AFCM.hab.ppower"))
+        ),
+        fluidRow(
+          box(title = "Habillage de la catégorie sécurité", plotOutput("AFCM.hab.safety")),
+          box(title = "Habillage de la catégorie santé", plotOutput("AFCM.hab.health"))
+        )
       ),
 
       tabItem(
