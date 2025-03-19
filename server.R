@@ -147,7 +147,7 @@ shinyServer(function(input, output, session){
   # Resultat tab ----
   
   output$results.ACP.table = DT::renderDT({
-    #ACPres()$ind$contrib[,c("Dim.1", "Dim.2")]
+    
     df_res1 = df[complete.cases(df[,interest.variables.quanti]),]
 
     df_res1[,"contrib.sum"] = (ACPres()$ind$contrib[,"Dim.1"] + ACPres()$ind$contrib[,"Dim.2"])
@@ -183,6 +183,7 @@ shinyServer(function(input, output, session){
     
   })
 
+  # resultat map ---
   output$map = renderLeaflet({
     leaflet(world_filtered) %>%
       addTiles() %>%

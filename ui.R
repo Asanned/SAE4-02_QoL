@@ -6,11 +6,6 @@ dashboardPage(skin = "purple",
   dashboardSidebar(
     width = 200,
     sidebarMenu(
-      h3("Résultats"),
-      menuItem("Carte", tabName = "map", icon = icon("map")),
-      menuItem("Classement", tabName = "resultats",icon=icon("table")),
-      menuItem("Groupes", tabName = "result_graph",icon=icon("object-ungroup")),
-      hr(), 
       h3("Analyses descriptives"),
       menuItem("Analyse univariée", tabName = "univar", icon = icon("chart-bar")),
       menuItem("Analyse bivariée", tabName = "bivar", icon = icon("chart-line")),
@@ -18,7 +13,12 @@ dashboardPage(skin = "purple",
       h3("Analyses Factorielles"),
       menuItem("AFCM Axe", tabName="AFCM_axe", icon = icon("dashboard")),
       menuItem("AFCM Habillage", tabName="AFCM_hab", icon = icon("dashboard")),
-      menuItem("ACP", tabName = "ACP",icon=icon("crosshairs"))
+      menuItem("ACP", tabName = "ACP",icon=icon("crosshairs")),
+      hr(),
+      h3("Résultats"),
+      menuItem("Carte", tabName = "map", icon = icon("map")),
+      menuItem("Classement", tabName = "resultats",icon=icon("table")),
+      menuItem("Groupes", tabName = "result_graph",icon=icon("object-ungroup"))
     )
   ),
   dashboardBody(
@@ -34,7 +34,9 @@ dashboardPage(skin = "purple",
           color="purple",
           width = 3,
           title = "Variable à afficher",
-          radioButtons("univar.variable","",choices = substr(numeric.variables, 0,nchar(numeric.variables)-6))
+          radioButtons("univar.variable","",
+                       choices = substr(numeric.variables, 0,
+                                        nchar(numeric.variables)-6))
         ),
         tabBox(
           title = tagList(shiny::icon("gear"), "Graphique"),
@@ -67,14 +69,16 @@ dashboardPage(skin = "purple",
           status = "primary",
           color="purple",
           width = 6,
-          selectInput("bivar.varX", "Choix de la variable x:", choices = numeric.variables, selected = "Purchasing.Power.Value")
+          selectInput("bivar.varX", "Choix de la variable x:", 
+                      choices = numeric.variables, selected = "Purchasing.Power.Value")
                ),
         box(
           solidHeader = TRUE,
           status = "primary",
           color="purple",
           width = 6,
-          selectInput("bivar.varY", "Choix de la variable y:", choices = numeric.variables, selected = "Cost.of.Living.Value")
+          selectInput("bivar.varY", "Choix de la variable y:", 
+                      choices = numeric.variables, selected = "Cost.of.Living.Value")
             )
         ),
         
@@ -132,13 +136,7 @@ dashboardPage(skin = "purple",
       
       tabItem(
         tabName = "resultats",
-        fluidRow(
-          # box(width = 12,solidHeader = TRUE,status = "primary",
-          #   numericInput("results.CTR_threshold", label = "CTR threshold", 2.5, min = 0, max = 10, step = 0.1)
-          # ),
-          # box(width = 6,
-          #   DTOutput("results.ACP.table")
-          # ),
+        fluidPage(
           box(width = 12,
             DTOutput("results.AFCM.table")  
           ),
@@ -148,8 +146,13 @@ dashboardPage(skin = "purple",
         tabName = "result_graph",
         fluidRow(
           box(width = 12, class = "grid1-parent",
-              div(checkboxInput('results.cluster.repel', 'Séparer les labels'), class = "grid1-checkbox"),
-              div(numericInput('results.cluster.labelsize', 'Taille des labels', 12, min = 5, max = 32, step = 1, width = "100px"), class = "grid1-numInput"),
+              div(checkboxInput('results.cluster.repel', 'Séparer les labels'),
+                  class = "grid1-checkbox"),
+              
+              div(numericInput('results.cluster.labelsize', 'Taille des labels', 
+                               12, min = 5, max = 32, step = 1, width = "100px"),
+                  class = "grid1-numInput"),
+              
               div(plotlyOutput("results.cluster", height = "80vh"), class = "grid1-plot")
           )
         )),
