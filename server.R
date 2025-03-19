@@ -165,8 +165,8 @@ shinyServer(function(input, output, session){
   
   # Resultat graph ---
   
-  output$results.cluster = renderPlot({
-    
+  output$results.cluster = renderPlotly({
+    ggplotly(
     fviz_cluster(
       cl, df.acm$li, 
       labelsize = input$results.cluster.labelsize, 
@@ -179,6 +179,7 @@ shinyServer(function(input, output, session){
       theme(legend.position="none") + 
       scale_color_brewer('Cluster', palette = 'Dark2') +
       scale_fill_brewer('Cluster', palette = 'Dark2')
+    ) #TODO: Infobulle personalisée avec nom du pays et classement
     
   })
 

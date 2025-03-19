@@ -59,10 +59,82 @@ df_ordre_pays = sort_by(df[,interest.variables.quali], df.acm$tab[,c(
       "Purchasing.Power.Category.High",
       "Health.Care.Category.High",
       "Safety.Category.High",
-      "Pollution.Category.Low"
+      "Pollution.Category.Low", 
+
+      "Purchasing.Power.Category.Moderate",
+      "Health.Care.Category.Moderate",
+      "Safety.Category.Moderate",
+      "Pollution.Category.Moderate", 
+
+      "Purchasing.Power.Category.Low",
+      "Health.Care.Category.Low",
+      "Safety.Category.Low",
+      "Pollution.Category.High", 
+
+      "Purchasing.Power.Category.Very.Low",
+      "Health.Care.Category.Very.Low",
+      "Safety.Category.Very.Low",
+      "Pollution.Category.Very.High"
     )], decreasing = TRUE)
 
 df_ordre_pays$ordre = 1:dim(df_ordre_pays)[1]
+
+
+noms_correspondance <- c(
+  "Guadeloupe" = "Guadeloupe",
+  "Aland Islands" = "Åland",
+  "Isle Of Man" = "Isle of Man",
+  "Cayman Islands" = "Cayman Is.",
+  "United States" = "United States of America",
+  "Alderney" = "Alderney",
+  "Sao Tome And Principe" = "São Tomé and Principe",
+  "French Polynesia" = "Fr. Polynesia",
+  "Vatican City" = "Vatican",
+  "Faroe Islands" = "Faeroe Is.",
+  "Saint-Pierre And Miquelon" = "St. Pierre and Miquelon",
+  "Cook Islands" = "Cook Is.",
+  "Us Virgin Islands" = "U.S. Virgin Is.",
+  "Falkland Islands" = "Falkland Is.",
+  "Czech Republic" = "Czechia",
+  "Gibraltar" = "Gibraltar",
+  "Hong Kong (China)" = "Hong Kong",
+  "Reunion" = "Réunion",
+  "Martinique" = "Martinique",
+  "Macao (China)" = "Macao",
+  "Eswatini" = "eSwatini",
+  "Kosovo (Disputed Territory)" = "Kosovo",
+  "Republic of the Congo" = "Congo",
+  "Cape Verde" = "Cabo Verde",
+  "Northern Mariana Islands" = "N. Mariana Is.",
+  "Saint Vincent And The Grenadines" = "St. Vin. and Gren.",
+  "Marshall Islands" = "Marshall Is.",
+  "Bonaire" = "Bonaire",
+  "Western Sahara" = "W. Sahara",
+  "Saint Kitts And Nevis" = "St. Kitts and Nevis",
+  "Turks And Caicos Islands" = "Turks and Caicos Is.",
+  "French Guiana" = "French Guiana",
+  "French Southern Territories" = "Fr. S. Antarctic Lands",
+  "Bosnia And Herzegovina" = "Bosnia and Herz.",
+  "Equatorial Guinea" = "Eq. Guinea",
+  "Curacao" = "Curaçao",
+  "Ivory Coast" = "Côte d'Ivoire",
+  "Trinidad And Tobago" = "Trinidad and Tobago",
+  "Dominican Republic" = "Dominican Rep.",
+  "Solomon Islands" = "Solomon Is.",
+  "Central African Republic" = "Central African Rep.",
+  "Antigua And Barbuda" = "Antigua and Barb.",
+  "British Virgin Islands" = "British Virgin Is.",
+  "South Sudan" = "S. Sudan",
+  "Democratic Republic of the Congo" = "Dem. Rep. Congo",
+  "Wallis And Futuna" = "Wallis and Futuna Is."
+)
+
+nouveaux_noms <- rownames(df_ordre_pays)
+for (nom in names(noms_correspondance)) {
+  nouveaux_noms[nouveaux_noms == nom] <- noms_correspondance[nom]
+}
+rownames(df_ordre_pays) <- nouveaux_noms
+
 
 # Map
 

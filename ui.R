@@ -150,13 +150,13 @@ dashboardPage(skin = "purple",
           box(width = 12, class = "grid1-parent",
               div(checkboxInput('results.cluster.repel', 'Séparer les labels'), class = "grid1-checkbox"),
               div(numericInput('results.cluster.labelsize', 'Taille des labels', 12, min = 5, max = 32, step = 1, width = "100px"), class = "grid1-numInput"),
-              div(plotOutput("results.cluster", height = "80vh"), class = "grid1-plot")
+              div(plotlyOutput("results.cluster", height = "80vh"), class = "grid1-plot")
           )
         )),
 
       tabItem(
         tabName = "map",
-        leafletOutput("map")
+        leafletOutput("map", height = "80vh")
       )
       )
     )
