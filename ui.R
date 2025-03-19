@@ -153,7 +153,7 @@ dashboardPage(skin = "purple",
                                12, min = 5, max = 32, step = 1, width = "100px"),
                   class = "grid1-numInput"),
               
-              div(plotlyOutput("results.cluster", height = "80vh"), class = "grid1-plot")
+              div(plotOutput("results.cluster", height = "80vh"), class = "grid1-plot")
           )
         )),
 

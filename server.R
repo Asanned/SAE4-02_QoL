@@ -165,7 +165,7 @@ shinyServer(function(input, output, session){
   
   # Resultat graph ---
   
-  output$results.cluster = renderPlotly({
+  output$results.cluster = renderPlot({
     
     fviz_cluster(
       cl, df.acm$li, 
