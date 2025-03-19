@@ -8,7 +8,11 @@ library(factoextra)
 library(DT)
 library(plotly)
 library(graphics)
-#library(fontawesome) # pour avoir de jolie icon <3
+
+library(leaflet)
+library(sf)
+library(rnaturalearth)
+library(colorRamps)
 
 interest.variables.quanti = c("Purchasing.Power.Value", "Safety.Value", "Health.Care.Value", "Pollution.Value")
 interest.variables.quali = c("Purchasing.Power.Category", "Safety.Category", "Health.Care.Category", "Pollution.Category")
@@ -77,7 +81,7 @@ df_ordre_pays = sort_by(df[,interest.variables.quali], df.acm$tab[,c(
       "Pollution.Category.Very.High"
     )], decreasing = TRUE)
 
-df_ordre_pays$ordre = 1:dim(df_ordre_pays)[1]
+df_ordre_pays$rang = 1:dim(df_ordre_pays)[1]
 
 
 noms_correspondance <- c(
@@ -138,13 +142,8 @@ rownames(df_ordre_pays) <- nouveaux_noms
 
 # Map
 
-couleurs <- colorRampPalette(c("blue", "red"))(nrow(df_ordre_pays))
-
-library(leaflet)
-library(sf)
-library(rnaturalearth)
-library(colorRamps)
-
+# couleurs <- colorRampPalette(c("blue", "red"))(nrow(df_ordre_pays))
+couleurs <- colorRampPalette(c("blue", "#FA8072"))(nrow(df_ordre_pays))
 
 # Obtenir les données géospatiales des pays
 world <- ne_countries(scale = "medium", returnclass = "sf")

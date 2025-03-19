@@ -166,7 +166,7 @@ shinyServer(function(input, output, session){
   # Resultat graph ---
   
   output$results.cluster = renderPlotly({
-    ggplotly(
+    
     fviz_cluster(
       cl, df.acm$li, 
       labelsize = input$results.cluster.labelsize, 
@@ -179,7 +179,7 @@ shinyServer(function(input, output, session){
       theme(legend.position="none") + 
       scale_color_brewer('Cluster', palette = 'Dark2') +
       scale_fill_brewer('Cluster', palette = 'Dark2')
-    ) #TODO: Infobulle personalisée avec nom du pays et classement
+    
     
   })
 
@@ -191,8 +191,16 @@ shinyServer(function(input, output, session){
         fillOpacity = 0.7,
         color = "black",
         weight = 1,
-        label = ~paste(name, "-", "Ordre:", df_ordre_pays$ordre[match(name, rownames(df_ordre_pays))])
-      ) 
+        label = ~paste(name, "-", "Rang:", df_ordre_pays$rang[match(name, rownames(df_ordre_pays))])
+      ) %>% 
+      addLegend(
+        position = "bottomright",
+        pal = colorNumeric(palette = couleurs, domain = df_ordre_pays$rang),
+        values = df_ordre_pays$rang,
+        opacity = 0.75,
+        title = "Rang"
+
+      )
   })
 
 })

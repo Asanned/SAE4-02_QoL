@@ -4,21 +4,21 @@ dashboardPage(skin = "purple",
     titleWidth = 450
   ),
   dashboardSidebar(
-    width = 150,
+    width = 200,
     sidebarMenu(
-      # h3("Analyse descriptive"),
-      # menuItem("Analyse univariée", tabName = "univar", icon = icon("chart-bar")),
-      # menuItem("Analyse bivariée", tabName = "bivar", icon = icon("chart-line")),
-      # div(class="separator_bar"),
-      # h3("Analyses Factorielles"),
-      # menuItem("AFCM Axe", tabName="AFCM_axe", icon = icon("dashboard")),
-      # menuItem("AFCM Habillage", tabName="AFCM_hab", icon = icon("dashboard")),
-      # menuItem("ACP", tabName = "ACP",icon=icon("crosshairs")),
-      # div(class="separator_bar"),
-      # h3("Résultats"),
-      # menuItem("Tableau", tabName = "resultats",icon=icon("trophy")),
-      menuItem("Cluster", tabName = "result_graph",icon=icon("trophy")),
-      menuItem("Carte", tabName = "map")
+      h3("Résultats"),
+      menuItem("Carte", tabName = "map", icon = icon("map")),
+      menuItem("Classement", tabName = "resultats",icon=icon("table")),
+      menuItem("Groupes", tabName = "result_graph",icon=icon("object-ungroup")),
+      hr(), 
+      h3("Analyses descriptives"),
+      menuItem("Analyse univariée", tabName = "univar", icon = icon("chart-bar")),
+      menuItem("Analyse bivariée", tabName = "bivar", icon = icon("chart-line")),
+      hr(), 
+      h3("Analyses Factorielles"),
+      menuItem("AFCM Axe", tabName="AFCM_axe", icon = icon("dashboard")),
+      menuItem("AFCM Habillage", tabName="AFCM_hab", icon = icon("dashboard")),
+      menuItem("ACP", tabName = "ACP",icon=icon("crosshairs"))
     )
   ),
   dashboardBody(
@@ -133,13 +133,13 @@ dashboardPage(skin = "purple",
       tabItem(
         tabName = "resultats",
         fluidRow(
-          box(width = 12,solidHeader = TRUE,status = "primary",
-            numericInput("results.CTR_threshold", label = "CTR threshold", 2.5, min = 0, max = 10, step = 0.1)
-          ),
-          box(width = 6,
-            DTOutput("results.ACP.table")
-          ),
-          box(width = 6,
+          # box(width = 12,solidHeader = TRUE,status = "primary",
+          #   numericInput("results.CTR_threshold", label = "CTR threshold", 2.5, min = 0, max = 10, step = 0.1)
+          # ),
+          # box(width = 6,
+          #   DTOutput("results.ACP.table")
+          # ),
+          box(width = 12,
             DTOutput("results.AFCM.table")  
           ),
         )),
@@ -156,7 +156,7 @@ dashboardPage(skin = "purple",
 
       tabItem(
         tabName = "map",
-        leafletOutput("map", height = "80vh")
+        leafletOutput("map", height = "90vh")
       )
       )
     )
